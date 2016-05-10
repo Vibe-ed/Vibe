@@ -1,6 +1,7 @@
 /* NOTES
 Have API structure setup, but they are not used.
-
+Investigate putting image into a 'top contaner'
+change individual bar colore in bar chart
 */
 
 /* Libraries */
@@ -46,19 +47,13 @@ var styles = StyleSheet.create({
         right: 4,
         top: 20,
         position: 'absolute',
-//        width: 53,
-//        height: 81,
-//        flex: 1,
-//        transform: [                        // `transform` is an ordered array
-//          {scale: this.state.bounceValue},  // Map `bounceValue` to `scale`
-//      ]
     }
 });
 
 var chartAPI = {
     users: ['henry', 'yael', 'tyler'],
     proportions: [0.01, 0.98, 0.01],
-    commLevel: 3
+    commLevel: 2
 };
 
 var chartData = [
@@ -73,13 +68,29 @@ var chartData = [
 
 var xLabels = chartAPI.users
 
+var commURL = ""
+switch (chartAPI.commLevel) {
+  case 3:
+    commURL = 'https://media.giphy.com/media/cz70wJgrvLa9i/giphy.gif';
+    break;
+  case 2:
+    commURL = 'http://rs138.pbsrc.com/albums/q249/xxxANBUxxx/o.gif~c200'
+    break;
+  case 1:
+    commURL = 'https://media.giphy.com/media/OOdKuvLmj8QYU/giphy.gif'
+    break;
+  default:
+    commURL = 'https://media.giphy.com/media/cz70wJgrvLa9i/giphy.gif';
+
+}
+
+
 class dashboard extends React.Component {
   /* Inital state when loading data */
   constructor(props: any) {
     super(props);
     this.state = {
-//      bounceValue: new Animated.Value(0), // animation
-      graph: null                         // graph
+      graph: null
     };
   }
 
@@ -107,7 +118,7 @@ class dashboard extends React.Component {
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
-          graph: responseData.movies,
+          graph: responseData.graph,
         });
       })
       .done();
@@ -123,23 +134,17 @@ class dashboard extends React.Component {
     } */
     return (
       <View style={styles.container}>
-        <RNChart style={styles.chart}
+        <RNChart style={styles.chart}       // Render the graph
                  chartData={chartData}
                  verticalGridStep={5}
                  xLabels={xLabels}
              />
-        <Image
-                 source={{uri: 'http://i.imgur.com/XMKOH81.jpg'}}
+        <Animated.Image                    // Render the image
+                 source={{uri: commURL}}
                  style={styles.image}
              />
       </View>
     );
-
-
-//    return (
-//      this.renderGraph
-//      this.renderImage
-//    );
   }
 
   /* Renders loading text */
