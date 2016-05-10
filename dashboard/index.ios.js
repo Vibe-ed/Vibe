@@ -39,13 +39,20 @@ var styles = StyleSheet.create({
         left: 4,
         bottom: 4,
         right: 16,
-    }
-//    image: {
+    },
+    image: {
+        height: 436,
+        left: 4,
+        right: 4,
+        top: 20,
+        position: 'absolute',
+//        width: 53,
+//        height: 81,
 //        flex: 1,
 //        transform: [                        // `transform` is an ordered array
 //          {scale: this.state.bounceValue},  // Map `bounceValue` to `scale`
 //      ]
-//    }
+    }
 });
 
 var chartAPI = {
@@ -121,7 +128,11 @@ class dashboard extends React.Component {
                  verticalGridStep={5}
                  xLabels={xLabels}
              />
-        </View>
+        <Image
+                 source={{uri: 'http://i.imgur.com/XMKOH81.jpg'}}
+                 style={styles.image}
+             />
+      </View>
     );
 
 
