@@ -1,0 +1,72 @@
+---
+title: "Voice Script"
+author: "Henry Neeb"
+date: "May 22, 2016"
+output: html_document
+---
+
+## Libraries
+
+```{r}
+library(readr)
+```
+
+## FileParms
+```{r}
+# Session -> set working directory -> Source file location
+
+# Path for data
+data_path <- "data/"
+yael_file <- "Yael_ind_01_spectrogram"
+henry_file <- "Henry_ind_01_spectrogram"
+tyler_file <- "Tyler_ind_01_spectrogram"
+
+yael_file <- paste(data_path, yael_file, sep = "")
+henry_file <- paste(data_path, henry_file, sep = "")
+tyler_file <- paste(data_path, tyler_file, sep = "")
+```
+
+## Read in Data
+
+```{r}
+# Read in as a dataframe
+yael <- as.data.frame(t(read_delim(yael_file, delim = " ", col_names = FALSE)))
+tyler <- as.data.frame(t(read_delim(tyler_file, delim = " ", col_names = FALSE)))
+henry <- as.data.frame(t(read_delim(henry_file, delim = " ", col_names = FALSE)))
+
+# Label Responses
+y <- as.matrix(rep(3, dim(yael)[1]))
+t <- as.matrix(rep(2, dim(tyler)[1]))
+h <- as.matrix(rep(1, dim(henry)[1]))
+
+# Bind the data into one file.
+response <- rbind(y, t, h)
+df <- rbind(yael, tyler, henry)
+df <- cbind(response, df)
+```
+
+We'll keep the column names the same since they're numbered.
+
+## Variance
+
+```{r}
+henry_var <- matrix(0, dim(henry)[2], 1)
+henry <- as.matrix(henry)
+
+for (i in seq_len(dim(henry)[2])) {
+  henry_var[i, 1] <- var(henry[, i])
+}
+
+
+
+```
+
+```
+
+
+## Clusters
+
+```{r}
+fit <- kmeans(x = df, centers = 3)
+```
+
