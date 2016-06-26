@@ -1,4 +1,4 @@
-# import os
+import os
 from flask import Flask, Response, request, render_template
 import convert_data
 
@@ -16,4 +16,6 @@ def get_algo_data():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
 
