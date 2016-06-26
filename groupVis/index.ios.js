@@ -12,10 +12,9 @@ import {
 } from 'react-native';
 
 var graphAPI1 = {
-  graph:  [[4, 1, 0, 0],
+  graph:  [[5, 1, 0, 0],
            [2, 2, 1, 0],
-           [0, 0, 1, 1],
-           [1, 1, 1, 1]]
+           [0, 0, 3, 1]]
 }
 
 var graphAPI2 = {
@@ -30,32 +29,45 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'white',
     },
+    header: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: 40,
+      backgroundColor: 'black',
+    },
+    title: {
+      position: 'absolute',
+      top: 2,
+      left: 125,
+      right: 1,
+      height: 30,
+      backgroundColor: 'black',
+    },
     user0: {
-      height: 60,
-      left: 20,
-      right: 275,
-      top: 100,
+      height: 60 + graphAPI1.graph[0][0] * 10,
+      width: 60 + graphAPI1.graph[0][0] * 10,
+      // left: 20,
+      right: 100,
+      top: 60,
       position: 'absolute',
     },
     user1: {
-      height: 60,
-      left: 275,
-      right: 20,
-      top: 100,
-      position: 'absolute',
-    },
-    user2: {
-      height: 60,
+      height: 60 + graphAPI1.graph[1][1] * 10,
+      width: 60 + graphAPI1.graph[1][1] * 10,
       left: 20,
       right: 275,
-      bottom: 100,
+      bottom: 80,
       position: 'absolute',
+      tintColor: 'red'
     },
-    user3: {
-      height: 60,
-      left: 275,
-      right: 20,
-      bottom: 100,
+    user2: {
+      height: 60 + graphAPI1.graph[2][2] * 10,
+      width: 60 + graphAPI1.graph[2][2] * 10,
+      left: 225,
+      right: 200,
+      bottom: 80,
       position: 'absolute',
     },
 });
@@ -64,7 +76,7 @@ var graphLabels = {
   users: graphAPI2.users
 }
 
-var commURL = 'https://facebook.github.io/react/img/logo_og.png'
+var commURL = 'https://d30y9cdsu7xlg0.cloudfront.net/png/5024-200.png'
 class groupVis extends React.Component {
   /* Inital state when loading data */
   // constructor(props: any) {
@@ -104,6 +116,14 @@ class groupVis extends React.Component {
     } */
     return (
       <View style={styles.container}>
+        <Image                    // Render the image
+               source={{uri: commURL}}
+               style={styles.header}
+             />
+        <Image                    // Render the image
+               source={require('./vibe_logo_simple.png')}
+               style={styles.title}
+             />
         <Animated.Image                    // Render the image
                  source={{uri: commURL}}
                  style={styles.user0}
@@ -115,10 +135,6 @@ class groupVis extends React.Component {
         <Animated.Image                    // Render the image
                  source={{uri: commURL}}
                  style={styles.user2}
-             />
-        <Animated.Image                    // Render the image
-                 source={{uri: commURL}}
-                 style={styles.user3}
              />
       </View>
     );
