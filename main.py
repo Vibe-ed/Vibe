@@ -1,6 +1,6 @@
 # import os
 from flask import Flask, Response, request, render_template
-import covert_data
+import convert_data
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def index():
 
 @app.route('/get_data')
 def get_algo_data():
-    return covert_data.get_sample_date_json()
+    return convert_data.get_sample_date_json()
 
 
 if __name__ == '__main__':
