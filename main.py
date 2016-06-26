@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return convert_data.get_sample_date_json()
+    return render_template('html_sample.html')
 
 
 @app.route('/get_data')
