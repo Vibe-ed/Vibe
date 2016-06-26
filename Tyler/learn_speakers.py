@@ -54,15 +54,7 @@ def load_and_arrange_data():
 	return X,y
 
 
-def logistic_regression():
-
-	"""
-	runs logistic regression on data.
-	disabled section - Grid search over params
-	"""
-
-
-	X,y = load_and_arrange_data()
+def split_and_shuffle(X,y,test_size=0.2):
 
 	#shuffle
 	np.random.seed(0)
@@ -70,11 +62,26 @@ def logistic_regression():
 
 	#split to train and test
 	X_train, X_valid, y_train, y_valid = train_test_split(
-	X[indices], y[indices], test_size=0.05)
+	X[indices], y[indices], test_size=test_size)
+
+	return X_train, X_valid, y_train, y_valid
+
+
+def logistic_regression():
+
+	"""
+	runs logistic regression on data.
+	disabled section - Grid search over params
+	"""
+
+	X,y = load_and_arrange_data()
+	X_train, X_valid, y_train, y_valid = split_and_shuffle(X,y,test_size=0.2)
+
 
 	#build scaling + estimator pipeline
 	print 'building estimators'
-	estimators = [('standard scaler', preprocessing.StandardScaler()), ('logistic', linear_model.LogisticRegression(C=1))]
+	C=1e-2
+	estimators = [('standard scaler', preprocessing.StandardScaler()), ('logistic', linear_model.LogisticRegression(C=C))]
 	clf = pipeline.Pipeline(estimators)
 	clf.fit(X_train,y_train)
 

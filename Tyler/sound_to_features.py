@@ -16,6 +16,7 @@ def wav_to_frequencies(wav_path, nfft=None,  window_type='hann', sample_time=1, 
     
     """
 
+
     #calc overlap between samples.
     overlapFactor = float(sample_time)/overlap
     
