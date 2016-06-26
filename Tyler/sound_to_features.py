@@ -15,7 +15,15 @@ def wav_to_frequencies(wav_path, nfft=None,  window_type='hamming', sample_time=
     arr[2] - feature matrix X.
     
     """
+<<<<<<< HEAD
     
+=======
+
+
+    #calc overlap between samples.
+    overlapFactor = float(sample_time)/overlap
+    #overlapFactor = 0
+>>>>>>> f68a3da5769c2317f7668a8c345780f1f31ab43e
     # Read in the 30 second samplings
     [Fs, wav] = scipy.io.wavfile.read(wav_path)
     # Use built in spectrogram to compare to FFT

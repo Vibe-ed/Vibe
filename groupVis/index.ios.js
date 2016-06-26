@@ -10,16 +10,32 @@ import {
   View,
   Animated
 } from 'react-native';
+import Svg,{
+    Circle,
+    Ellipse,
+    G,
+    LinearGradient,
+    RadialGradient,
+    Line,
+    Path,
+    Polygon,
+    Polyline,
+    Rect,
+    Symbol,
+    Use,
+    Defs,
+    Stop
+} from 'react-native-svg';
 
 var graphAPI1 = {
-  graph:  [[5, 1, 0, 0],
-           [2, 2, 1, 0],
-           [0, 0, 3, 1]]
+  graph:  [[1, 1, 0],
+           [2, 1, 1],
+           [0, 0, 1]]
 }
 
 var graphAPI2 = {
-  users: ['henry', 'yael', 'tyler', 'tom'],
-  numUsers: 4
+  users: ['henry', 'yael', 'tyler'],
+  numUsers: 3
 }
 
 var styles = StyleSheet.create({
@@ -45,15 +61,15 @@ var styles = StyleSheet.create({
       height: 30,
       backgroundColor: 'black',
     },
-    user0: {
+    iconUser0: {
       height: 60 + graphAPI1.graph[0][0] * 10,
       width: 60 + graphAPI1.graph[0][0] * 10,
       // left: 20,
-      right: 100,
+      right: 125,
       top: 60,
       position: 'absolute',
     },
-    user1: {
+    iconUser1: {
       height: 60 + graphAPI1.graph[1][1] * 10,
       width: 60 + graphAPI1.graph[1][1] * 10,
       left: 20,
@@ -62,7 +78,7 @@ var styles = StyleSheet.create({
       position: 'absolute',
       tintColor: 'red'
     },
-    user2: {
+    iconUser2: {
       height: 60 + graphAPI1.graph[2][2] * 10,
       width: 60 + graphAPI1.graph[2][2] * 10,
       left: 225,
@@ -70,6 +86,234 @@ var styles = StyleSheet.create({
       bottom: 80,
       position: 'absolute',
     },
+    arrowTail0_1: {
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      borderBottomColor: 'transparent',
+      borderLeftColor: 'transparent',
+      borderRightColor: 'transparent',
+      borderBottomWidth: 0,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 3,
+      borderTopColor: 'red',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 12,
+      top: 215,
+      left: -10,
+      width: 200,
+      height: 20,
+      transform: [
+        {rotate: '111deg'}
+      ]
+    },
+    arrowHead0_1: {
+      backgroundColor: 'transparent',
+      width: 0,
+      height: 0,
+      borderTopWidth: 12,
+      borderTopColor: 'transparent',
+      borderRightWidth: 12,
+      borderRightColor: 'red',
+      borderStyle: 'solid',
+      transform: [
+        {rotate: '68deg'}
+      ],
+      position: 'absolute',
+      bottom: 156,
+      left: 58,
+      overflow: 'visible'
+    },
+    arrowTail0_2: {
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      borderBottomColor: 'transparent',
+      borderLeftColor: 'transparent',
+      borderRightColor: 'transparent',
+      borderBottomWidth: 0,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 3,
+      borderTopColor: 'red',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 12,
+      top: 220,
+      right: 10,
+      width: 200,
+      height: 20,
+      transform: [
+        {rotate: '69deg'}
+      ]
+    },
+    arrowHead0_2: {
+      backgroundColor: 'transparent',
+      width: 0,
+      height: 0,
+      borderTopWidth: 12,
+      borderTopColor: 'transparent',
+      borderRightWidth: 12,
+      borderRightColor: 'red',
+      borderStyle: 'solid',
+      transform: [
+        {rotate: '20deg'}
+      ],
+      position: 'absolute',
+      bottom: 156,
+      right: 61,
+      overflow: 'visible'
+    },
+    arrowTail1_0: {
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      borderBottomColor: 'transparent',
+      borderLeftColor: 'transparent',
+      borderRightColor: 'transparent',
+      borderBottomWidth: 0,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 3,
+      borderTopColor: 'red',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 12,
+      top: 230,
+      left: 15,
+      width: 200,
+      height: 20,
+      transform: [
+        {rotate: '291deg'}
+      ]
+    },
+    arrowHead1_0: {
+      backgroundColor: 'transparent',
+      width: 0,
+      height: 0,
+      borderTopWidth: 12,
+      borderTopColor: 'transparent',
+      borderRightWidth: 12,
+      borderRightColor: 'red',
+      borderStyle: 'solid',
+      transform: [
+        {rotate: '248deg'}
+      ],
+      position: 'absolute',
+      top: 138,
+      left: 136,
+      overflow: 'visible'
+    },
+    arrowTail1_2: {
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      borderBottomColor: 'transparent',
+      borderLeftColor: 'transparent',
+      borderRightColor: 'transparent',
+      borderBottomWidth: 0,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 3,
+      borderTopColor: 'red',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 12,
+      bottom: 80,
+      left: 75,
+      width: 160,
+      height: 20,
+      transform: [
+        {rotate: '0deg'}
+      ]
+    },
+    arrowHead1_2: {
+      backgroundColor: 'transparent',
+      width: 0,
+      height: 0,
+      borderTopWidth: 12,
+      borderTopColor: 'transparent',
+      borderRightWidth: 12,
+      borderRightColor: 'red',
+      borderStyle: 'solid',
+      transform: [
+        {rotate: '-45deg'}
+      ],
+      position: 'absolute',
+      bottom: 92,
+      right: 80,
+      overflow: 'visible'
+    },
+    arrowTail2_0: {
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      borderBottomColor: 'transparent',
+      borderLeftColor: 'transparent',
+      borderRightColor: 'transparent',
+      borderBottomWidth: 0,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 3,
+      borderTopColor: 'red',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 12,
+      top: 220,
+      right: 3,
+      width: 200,
+      height: 20,
+      transform: [
+        {rotate: '-111deg'}
+      ]
+    },
+    arrowHead2_0: {
+      backgroundColor: 'transparent',
+      width: 0,
+      height: 0,
+      borderTopWidth: 12,
+      borderTopColor: 'transparent',
+      borderRightWidth: 12,
+      borderRightColor: 'red',
+      borderStyle: 'solid',
+      transform: [
+        {rotate: '-160deg'}
+      ],
+      position: 'absolute',
+      top: 135,
+      right: 140,
+      overflow: 'visible'
+    },
+    arrowTail2_1: {
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      borderBottomColor: 'transparent',
+      borderLeftColor: 'transparent',
+      borderRightColor: 'transparent',
+      borderBottomWidth: 0,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 3,
+      borderTopColor: 'red',
+      borderStyle: 'solid',
+      borderTopLeftRadius: 12,
+      bottom: 110,
+      right: 75,
+      width: 160,
+      height: 20,
+      transform: [
+        {rotate: '180deg'}
+      ]
+    },
+    arrowHead2_1: {
+      backgroundColor: 'transparent',
+      width: 0,
+      height: 0,
+      borderTopWidth: 12,
+      borderTopColor: 'transparent',
+      borderRightWidth: 12,
+      borderRightColor: 'red',
+      borderStyle: 'solid',
+      transform: [
+        {rotate: '135deg'}
+      ],
+      position: 'absolute',
+      bottom: 106,
+      left: 80,
+      overflow: 'visible'
+    }
 });
 
 var graphLabels = {
@@ -78,42 +322,9 @@ var graphLabels = {
 
 var commURL = 'https://d30y9cdsu7xlg0.cloudfront.net/png/5024-200.png'
 class groupVis extends React.Component {
-  /* Inital state when loading data */
-  // constructor(props: any) {
-  //   super(props);
-  //   this.state = {
-  //     graph: null
-  //   };
-  // }
-
-  /* Fetches the data exactly once after component finishes loading */
-  // componentDidMount() {
-  //   /* Fetch chart data */
-  //   this.fetchData();
-  // }
-
-
-  /* NOT NEEDED YET */
-  /* Function to actually fetch data */
-  // fetchData() {
-  //   fetch(REQUEST_URL)
-  //     .then((response) => response.json())
-  //     .then((responseData) => {
-  //       this.setState({
-  //         graph: responseData.graph,
-  //       });
-  //     })
-  //     .done();
-  // }
-
   /* Master render function. Will render image or loading screen if
      trouble pinging server. */
   render() {
-    /* Dislpays loading text if data not loaded */
-    /* NOT NEEDED
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    } */
     return (
       <View style={styles.container}>
         <Image                    // Render the image
@@ -126,16 +337,28 @@ class groupVis extends React.Component {
              />
         <Animated.Image                    // Render the image
                  source={{uri: commURL}}
-                 style={styles.user0}
+                 style={styles.iconUser0}
              />
         <Animated.Image                    // Render the image
                  source={{uri: commURL}}
-                 style={styles.user1}
+                 style={styles.iconUser1}
              />
         <Animated.Image                    // Render the image
                  source={{uri: commURL}}
-                 style={styles.user2}
+                 style={styles.iconUser2}
              />
+        <View style={styles.arrowTail0_2} />
+        <View style={styles.arrowHead0_2} />
+        <View style={styles.arrowTail2_0} />
+        <View style={styles.arrowHead2_0} />
+        <View style={styles.arrowTail0_1} />
+        <View style={styles.arrowHead0_1} />
+        <View style={styles.arrowTail1_0} />
+        <View style={styles.arrowHead1_0} />
+        <View style={styles.arrowTail1_2} />
+        <View style={styles.arrowHead1_2} />
+        <View style={styles.arrowTail2_1} />
+        <View style={styles.arrowHead2_1} />
       </View>
     );
   }
@@ -153,209 +376,4 @@ class groupVis extends React.Component {
   }
 }
 
-  /* Renders the graph */
-  // renderGraph() {
-  //   return (
-  //     <View style={styles.container}>
-  //       <RNChart style={styles.chart}
-  //                chartData={chartData}
-  //                verticalGridStep={5}
-  //                xLabels={xLabels}
-  //            />
-  //       </View>
-  //   );
-  // }
-
-// var graphData = {
-//   user0: {
-//     name: graphAPI2.users[0]
-//     nodeSize: graphAPI1.graph[0][0]
-//     }
-// }
-
 AppRegistry.registerComponent('groupVis', () => groupVis);
-
-/* START OTHER PROJECT EXAMPLE */
-
-
-// /* NOTES
-// Have API structure setup, but they are not used.
-// Investigate putting image into a 'top contaner'
-// change individual bar color in bar chart
-// timed refreshed/interact with restful API
-// put on iphone
-// write portion for ipad mic with portioning
-// */
-//
-// /* Libraries */
-// import React, {
-//   AppRegistry,
-//   Component,
-//   Image,
-//   ListView,
-//   StyleSheet,
-//   Text,
-//   View,
-//   Animated
-// } from 'react-native';
-// import RNChart from 'react-native-chart';
-//
-// /* Import timer */
-// var TimerMixin = require('react-timer-mixin');
-//
-// /* API Information */
-// /* NOT USED - PLACE HOLDER */
-// var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
-// var API_URL = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json';
-// var PAGE_SIZE = 25;
-// var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
-// var REQUEST_URL = API_URL + PARAMS;
-//
-// /* Styles */
-// var styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         backgroundColor: 'white',
-//     },
-//     chart: {
-//         position: 'absolute',
-//         //top: 16,
-//         height: 200,
-//         left: 4,
-//         bottom: 4,
-//         right: 16,
-//     },
-//     image: {
-//         height: 436,
-//         left: 4,
-//         right: 4,
-//         top: 20,
-//         position: 'absolute',
-//     }
-// });
-//
-// var chartAPI = {
-//     users: ['henry', 'yael', 'tyler'],
-//     proportions: [0.01, 0.4, 0.01],
-//     commLevel: 1
-// };
-//
-// var chartData = [
-//     {
-//         name: 'BarChart',
-//         type: 'bar',
-//         color:'purple',
-//         widthPercent: 0.6,
-//         data: chartAPI.proportions,
-//     }
-// ];
-//
-// var xLabels = chartAPI.users
-//
-// var commURL = ""
-// switch (chartAPI.commLevel) {
-//   case 3:
-//     commURL = 'https://media.giphy.com/media/cz70wJgrvLa9i/giphy.gif';
-//     break;
-//   case 2:
-//     commURL = 'http://rs138.pbsrc.com/albums/q249/xxxANBUxxx/o.gif~c200'
-//     break;
-//   case 1:
-//     commURL = 'https://media.giphy.com/media/OOdKuvLmj8QYU/giphy.gif'
-//     break;
-//   default:
-//     commURL = 'https://media.giphy.com/media/cz70wJgrvLa9i/giphy.gif';
-// }
-//
-//
-// class dashboard extends React.Component {
-//   /* Inital state when loading data */
-//   constructor(props: any) {
-//     super(props);
-//     this.state = {
-//       graph: null
-//     };
-//   }
-//
-//   /* Fetches the data exactly once after component finishes loading */
-//   componentDidMount() {
-//     /* Fetch chart data */
-//     this.fetchData();
-//   }
-//
-//
-//   /* NOT NEEDED YET */
-//   /* Function to actually fetch data */
-//   fetchData() {
-//     fetch(REQUEST_URL)
-//       .then((response) => response.json())
-//       .then((responseData) => {
-//         this.setState({
-//           graph: responseData.graph,
-//         });
-//       })
-//       .done();
-//   }
-//
-//   /* Master render function. Will render image or loading screen if
-//      trouble pinging server. */
-//   render() {
-//     /* Dislpays loading text if data not loaded */
-//     /* NOT NEEDED
-//     if (!this.state.loaded) {
-//       return this.renderLoadingView();
-//     } */
-//     return (
-//       <View style={styles.container}>
-//         <RNChart style={styles.chart}       // Render the graph
-//                  chartData={chartData}
-//                  verticalGridStep={5}
-//                  xLabels={xLabels}
-//              />
-//         <Animated.Image                    // Render the image
-//                  source={{uri: commURL}}
-//                  style={styles.image}
-//              />
-//       </View>
-//     );
-//   }
-//
-//   /* Renders loading text */
-//   /* CURRENTLY NOT USED */
-//   renderLoadingView() {
-//     return (
-//       <View style={styles.container}>
-//         <Text>
-//           Loading data...
-//         </Text>
-//       </View>
-//     );
-//   }
-//
-//   /* Renders the graph */
-//   renderGraph() {
-//     return (
-//       <View style={styles.container}>
-//         <RNChart style={styles.chart}
-//                  chartData={chartData}
-//                  verticalGridStep={5}
-//                  xLabels={xLabels}
-//              />
-//         </View>
-//     );
-//   }
-//
-//   /* Render the image */
-// /*  renderImage(): ReactElement {
-//     return (
-//       <Animated.Image                         // Base: Image, Text, View
-//         source={{uri: 'http://i.imgur.com/XMKOH81.jpg'}}
-//         style={styles.image}
-//       />
-//     );
-//   } */
-// }
-//
-// AppRegistry.registerComponent('dashboard', () => dashboard);
