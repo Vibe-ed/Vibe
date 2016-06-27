@@ -11,13 +11,13 @@ import matplotlib.pyplot as plt
 # Address of the data files        
 address = r'/Users/tylerchase/repos/Vibe/voice_data/car_recordings//'
 
-[Fs, Henry] = scipy.io.wavfile.read(address + 'Henry_abc.wav')
+[Fs, Henry] = scipy.io.wavfile.read(address + 'group_2.wav')
 
 
-[Spectrogram_F, Spectrogram_t, Spectrogram] = wav_to_frequencies(address + 'Henry_abc.wav') 
+[Spectrogram_F, Spectrogram_t, Spectrogram] = wav_to_frequencies(address + 'group_2.wav') 
 
 
-numCoefficients = 10 # choose the sive of mfcc array
+numCoefficients = 26 # choose the sive of mfcc array
 minHz = 300.0
 maxHz = 8000.0  
 nfft = np.shape(Spectrogram)[1]
@@ -56,36 +56,32 @@ def melToFreq(mel):
     
 def spectrogram_to_mel(spectrogram):
     mel_matrix = []
-    for i in range(1):    
-        powerSpectrum = spectrogram[i,:]
-        plt.figure()
-        plt.plot(powerSpectrum)
+    for i in range(np.shape(Spectrogram)[0]):    
+        powerSpectrum = Spectrogram[i,:]
         filteredSpectrum = np.dot(powerSpectrum, melFilterBank(len(powerSpectrum)))
-        plt.figure()
-        plt.plot(melFilterBank(len(powerSpectrum)))
-        plt.figure()
-        plt.plot(filteredSpectrum)
         logSpectrum = np.log(filteredSpectrum)
         dctSpectrum = dct(logSpectrum, type=2)  # MFCC :)
-        mel_matrix.append(dctSpectrum)
+        mel_matrix.append(dctSpectrum[1:13])
     return(np.array(mel_matrix))
     
-#mel = spectrogram_to_mel(Spectrogram)
-    
+mel = spectrogram_to_mel(Spectrogram)
+ 
+'''   
 mel_matrix = []
-for i in range(1):    
-    powerSpectrum = Spectrogram[1500,:]
-    plt.figure()
-    plt.plot(Spectrogram_F, powerSpectrum)
+for i in range(np.shape(Spectrogram)[0]):    
+    powerSpectrum = Spectrogram[i,:]
     filteredSpectrum = np.dot(powerSpectrum, melFilterBank(len(powerSpectrum)))
-    plt.figure()
-    plt.plot(Spectrogram_F, melFilterBank(len(powerSpectrum)))
-    plt.figure()
-    plt.plot(filteredSpectrum)
     logSpectrum = np.log(filteredSpectrum)
     dctSpectrum = dct(logSpectrum, type=2)  # MFCC :)
-    plt.figure()
-    plt.plot(dctSpectrum)
-    mel_matrix.append(dctSpectrum[1:14])
-    
-plt.show()
+    mel_matrix.append(dctSpectrum[1:13])
+ 
+   
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.imshow(Spectrogram).set_clim(0,1000)
+ax.set_aspect('auto')
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.imshow(mel_matrix)
+ax.set_aspect('auto')
+'''   
