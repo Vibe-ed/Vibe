@@ -22,6 +22,12 @@ speaker_3_abc_file = 'Tyler_abc.wav'
 speaker_1_reading_file = 'Yael_ny.wav'
 speaker_2_reading_file = 'Henry_ny.wav'
 speaker_3_reading_file = 'Tyler_ny.wav'
+
+speaker_1_girl_file = 'Yael_girl.wav'
+speaker_2_girl_file = 'Henry_girl.wav'
+speaker_3_girl_file = 'Tyler_girl.wav'
+
+group_file = 'group_2.wav'
 #----------------------------------------------
 
 
@@ -45,16 +51,28 @@ def load_data_abc_in_training():
 	speaker_1_abc = wav_to_frequencies('%s/%s'%(wav_dir, speaker_1_abc_file))
 	speaker_2_abc = wav_to_frequencies('%s/%s'%(wav_dir, speaker_2_abc_file))
 	speaker_3_abc = wav_to_frequencies('%s/%s'%(wav_dir, speaker_3_abc_file))
-
 	#load readings
 	speaker_1_reading = wav_to_frequencies('%s/%s'%(wav_dir, speaker_1_reading_file))
 	speaker_2_reading = wav_to_frequencies('%s/%s'%(wav_dir, speaker_2_reading_file))
 	speaker_3_reading = wav_to_frequencies('%s/%s'%(wav_dir, speaker_3_reading_file))
 
+	#load girl story
+	speaker_1_girl = wav_to_frequencies('%s/%s'%(wav_dir, speaker_1_girl_file))
+	speaker_2_girl = wav_to_frequencies('%s/%s'%(wav_dir, speaker_2_girl_file))
+	speaker_3_girl = wav_to_frequencies('%s/%s'%(wav_dir, speaker_3_girl_file))
+
 	data_reading = 	(speaker_1_reading[2], speaker_2_reading[2], speaker_3_reading[2])
 	labels_reading = ([0]*len(speaker_1_reading[2]), [1]*len(speaker_2_reading[2]), [2]*len(speaker_3_reading[2]))
 	X_reading = np.concatenate(data_reading,axis=0)
 	y_reading = np.concatenate(labels_reading,axis=0)
+
+	data_girl = 	(speaker_1_girl[2], speaker_2_girl[2], speaker_3_girl[2])
+	labels_girl = ([0]*len(speaker_1_girl[2]), [1]*len(speaker_2_girl[2]), [2]*len(speaker_3_girl[2]))
+	X_girl = np.concatenate(data_girl,axis=0)
+	y_girl = np.concatenate(labels_girl,axis=0)
+
+	X_all_reading = np.concatenate((X_reading, X_girl),axis=0)
+	y_all_reading = np.concatenate((y_reading, y_girl),axis=0)
 
 	data_abc = (speaker_1_abc[2], speaker_2_abc[2], speaker_3_abc[2])
 	labels_abc = ([0]*len(speaker_1_abc[2]), [1]*len(speaker_2_abc[2]), [2]*len(speaker_3_abc[2]))
@@ -64,15 +82,57 @@ def load_data_abc_in_training():
 
 	#shuffle
 	np.random.seed(0)
-	indices = np.random.permutation(len(X_reading))
+	indices = np.random.permutation(len(X_all_reading))
 	#split to train and test
 	X_train, X_valid, y_train, y_valid = train_test_split(
-	X_reading[indices], y_reading[indices], test_size=0.3)
+	X_all_reading[indices], y_all_reading[indices], test_size=0.2)
 
 	X_train = np.concatenate((X_train,X_abc),axis=0)
 	y_train = np.concatenate((y_train,y_abc),axis=0)
 
 	return X_train, X_valid, y_train, y_valid
+
+def load_all_train_data():
+
+	#load abc files
+	speaker_1_abc = wav_to_frequencies('%s/%s'%(wav_dir, speaker_1_abc_file))
+	speaker_2_abc = wav_to_frequencies('%s/%s'%(wav_dir, speaker_2_abc_file))
+	speaker_3_abc = wav_to_frequencies('%s/%s'%(wav_dir, speaker_3_abc_file))
+	#load readings
+	speaker_1_reading = wav_to_frequencies('%s/%s'%(wav_dir, speaker_1_reading_file))
+	speaker_2_reading = wav_to_frequencies('%s/%s'%(wav_dir, speaker_2_reading_file))
+	speaker_3_reading = wav_to_frequencies('%s/%s'%(wav_dir, speaker_3_reading_file))
+
+	#load girl story
+	speaker_1_girl = wav_to_frequencies('%s/%s'%(wav_dir, speaker_1_girl_file))
+	speaker_2_girl = wav_to_frequencies('%s/%s'%(wav_dir, speaker_2_girl_file))
+	speaker_3_girl = wav_to_frequencies('%s/%s'%(wav_dir, speaker_3_girl_file))
+
+	data_reading = 	(speaker_1_reading[2], speaker_2_reading[2], speaker_3_reading[2])
+	labels_reading = ([0]*len(speaker_1_reading[2]), [1]*len(speaker_2_reading[2]), [2]*len(speaker_3_reading[2]))
+	X_reading = np.concatenate(data_reading,axis=0)
+	y_reading = np.concatenate(labels_reading,axis=0)
+
+	data_girl = 	(speaker_1_girl[2], speaker_2_girl[2], speaker_3_girl[2])
+	labels_girl = ([0]*len(speaker_1_girl[2]), [1]*len(speaker_2_girl[2]), [2]*len(speaker_3_girl[2]))
+	X_girl = np.concatenate(data_girl,axis=0)
+	y_girl = np.concatenate(labels_girl,axis=0)
+
+	data_abc = (speaker_1_abc[2], speaker_2_abc[2], speaker_3_abc[2])
+	labels_abc = ([0]*len(speaker_1_abc[2]), [1]*len(speaker_2_abc[2]), [2]*len(speaker_3_abc[2]))
+	X_abc = np.concatenate(data_abc,axis=0)
+	y_abc= np.concatenate(labels_abc,axis=0)
+
+
+	X_all_data = np.concatenate((X_reading, X_girl, X_abc),axis=0)
+	y_all_data = np.concatenate((y_reading, y_girl, y_abc),axis=0)
+
+	#shuffle
+	np.random.seed(0)
+	indices = np.random.permutation(len(X_all_data))
+
+	return X_all_data[indices], y_all_data[indices]
+
 
 
 def load_and_arrange_data():
@@ -93,6 +153,7 @@ def load_and_arrange_data():
 
 
 def split_and_shuffle(X,y,test_size=0.2):
+<<<<<<< Updated upstream
 
 	#shuffle
 	np.random.seed(0)
@@ -110,19 +171,49 @@ def logistic_regression():
 	runs logistic regression on data.
 	disabled section - Grid search over params
 	"""
+=======
+
+	#shuffle
+	np.random.seed(0)
+	indices = np.random.permutation(len(X))
+
+	#split to train and test
+	X_train, X_valid, y_train, y_valid = train_test_split(
+	X[indices], y[indices], test_size=test_size)
+
+	return X_train, X_valid, y_train, y_valid
+
+
+def logistic_regression():
+
+	"""
+	runs logistic regression on data.
+	disabled section - Grid search over params
+	"""
+
+	X,y = load_and_arrange_data()
+	X_train, X_valid, y_train, y_valid = split_and_shuffle(X,y,test_size=0.2)
+
+>>>>>>> Stashed changes
 
 	#X,y = load_and_arrange_data()
 	#X_train, X_valid, y_train, y_valid = split_and_shuffle(X,y,test_size=0.2)
 	X_train, X_valid, y_train, y_valid = load_data_abc_in_training()
 
-
+	print X_train.shape
+	print X_valid.shape
 	#build scaling + estimator pipeline
 	print 'building estimators'
+<<<<<<< Updated upstream
 	C=1.5e-4
 	estimators = [
 					('standard scaler', preprocessing.StandardScaler()),
 					('logistic', linear_model.LogisticRegression(C=C))
 				]
+=======
+	C=1e-2
+	estimators = [('standard scaler', preprocessing.StandardScaler()), ('logistic', linear_model.LogisticRegression(C=C))]
+>>>>>>> Stashed changes
 	clf = pipeline.Pipeline(estimators)
 	clf.fit(X_train,y_train)
 
@@ -151,14 +242,13 @@ def svm():
 	#X_train, X_valid, y_train, y_valid = split_and_shuffle(X,y,test_size=0.2)
 	X_train, X_valid, y_train, y_valid = load_data_abc_in_training()
 
-
 	#build scaling + estimator pipeline
 	print 'building estimators'
 
 	C=3
 	estimators = [
 					('standard scaler', preprocessing.StandardScaler()),
-					('svm', SVC(kernel='poly', C=C))
+					('svm', SVC(kernel='rbf', C=C))
 				]
 	clf = pipeline.Pipeline(estimators)
 	clf.fit(X_train,y_train)
@@ -175,37 +265,35 @@ def random_forest():
 	#X,y = load_and_arrange_data()
 	#X_train, X_valid, y_train, y_valid = split_and_shuffle(X,y,test_size=0.2)
 	X_train, X_valid, y_train, y_valid = load_data_abc_in_training()
+	print X_train.shape
+	print X_valid.shape
+
 
 	#build scaling + estimator pipeline
 	print 'building estimators'
 
-	for i in [0.003,0.004,0.005,0.006,0.007,0.008]:
+	for i in [0.004]:
 		print 'n_estimators = %f'%i
 		
+		#buils pipeline
 		estimators = [
 					('standard scaler', preprocessing.StandardScaler()),
 					('random_forest', RandomForestClassifier(n_estimators = 450, max_features = i ))
 				]
 		clf = pipeline.Pipeline(estimators)
 
+		#fit training data.
 		clf.fit(X_train, y_train)
-		
-		'''
-		clf.fit(X_train, y_train)
+
 		#print scores
 		print 'random forest train score: %f'%clf.score(X_train,y_train)
 		print 'random forest valid score: %f'%clf.score(X_valid, y_valid)
-		'''
 
-		print 'random forest train score: %f'%clf.score(X_train,y_train)
-		print 'random forest valid score: %f'%clf.score(X_valid, y_valid)
-
+		#load data for plotting
 		speaker_1_abc, speaker_2_abc, speaker_3_abc, speaker_1_reading, speaker_2_reading, speaker_3_reading = load_data()
-			
-		#print 'random forest test speaker 1: %f'%clf.score(speaker_1_abc[2],[1]*len(speaker_1_abc[2]))
-		#print 'random forest test speaker 2: %f'%clf.score(speaker_2_abc[2],[2]*len(speaker_2_abc[2]))
-		#print 'random forest test speaker 3: %f'%clf.score(speaker_3_abc[2],[3]*len(speaker_3_abc[2]))
-
+		
+		#predict and plot solo readings
+		'''
 		fig = plt.figure()
 		plt.title('Yael')
 		fig.add_subplot(131)
@@ -227,7 +315,15 @@ def random_forest():
 		tyler_boosted = boost_by_sequence(tyler)
 		plt.plot(tyler,color='b')
 		plt.plot(tyler_boosted,color='r')
-		
+		'''
+
+		#predict and plot combined file.
+		fig2 = plt.figure()
+		group = wav_to_frequencies('%s/%s'%(wav_dir, group_file))
+		group_predictions = clf.predict(group[2])
+		ax = fig2.add_subplot(111)
+		ax.plot(group_predictions,color='b')
+		#ax.plot(boost_by_sequence(group_predictions),color='r')
 		plt.show()
 
 
@@ -316,9 +412,7 @@ def fully_connected_nn():
 						print("Validation accuracy: %.1f%%" % accuracy(
 						valid_prediction.eval(), valid_labels))
 
-
-
-def boost_by_sequence(predictions,distance=2):
+def boost_by_sequence(predictions,distance=1):
 	boosted = []
 	for i in xrange(len(predictions)):
 		counts = defaultdict(int)
@@ -331,16 +425,14 @@ def boost_by_sequence(predictions,distance=2):
 		chosen_pred = -100
 		for pred,count in counts.iteritems():
 			if count > max_count:
+				max_count = count
 				chosen_pred = pred
 		boosted.append(chosen_pred)
 	return boosted
 
 
-
-logistic_regression()
-
 #fully_connected_nn()
-
+logistic_regression()
 svm()
 random_forest()
 
